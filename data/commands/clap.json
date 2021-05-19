@@ -1,0 +1,12 @@
+{
+	"name": "clap",
+	"description": "clap your message",
+	"options": [
+		{
+			"name": "message",
+			"description": "I will clap",
+			"type": 3,
+			"required": true
+		}
+	]
+}

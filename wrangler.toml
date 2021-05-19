@@ -1,0 +1,11 @@
+name = "bot"
+type = "webpack"
+webpack_config = "webpack.config.js"
+
+account_id = "dff063da5dd1d4b1fa1f5c61ed75876b"
+workers_dev = true
+route = ""
+zone_id = ""
+
+
+[env.production]

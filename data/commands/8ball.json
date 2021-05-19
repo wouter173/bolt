@@ -1,0 +1,12 @@
+{
+	"name": "8ball",
+	"description": "8ball brrr",
+	"options": [
+		{
+			"name": "quote",
+			"description": "I will go make the future",
+			"type": 3,
+			"required": true
+		}
+	]
+}

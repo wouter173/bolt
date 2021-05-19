@@ -1,0 +1,12 @@
+{
+	"name": "urban",
+	"description": "search in urban dictionairy",
+	"options": [
+		{
+			"name": "term",
+			"description": "search term",
+			"type": 3,
+			"required": true
+		}
+	]
+}

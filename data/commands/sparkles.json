@@ -1,0 +1,12 @@
+{
+	"name": "sparkles",
+	"description": "add some sparks",
+	"options": [
+		{
+			"name": "qoute",
+			"description": "qoute",
+			"type": 3,
+			"required": true
+		}
+	]
+}
