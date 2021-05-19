@@ -36,7 +36,7 @@ export default async (cmd: Command): Promise<Response> => {
             \`\`\`${cmd.data.options[0].value}\`\`\`
             \`\`\`${answers[Math.floor(Math.random() * answers.length)]}\`\`\`
         `,
-		color: 3092790,
+		color: 15958048,
 	};
 
 	return new Response(

@@ -5,7 +5,7 @@ export default async (cmd: Command): Promise<Response> => {
 
 	const embed: Embed = {
 		title: `:books: **${article.word}**`,
-		color: 3092790,
+		color: 15958048,
 		fields: [
 			{
 				name: 'definition',

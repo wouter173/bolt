@@ -28,7 +28,7 @@ export default async (cmd: Command): Promise<Response> => {
 	const embed: Embed = {
 		title: ':heartpulse: **Love tester** :heartpulse:',
 		description: `\`${name1}\` ${heart} \`${name2}\`\n\n${heart} A **${percentage}%** match! ${heart}`,
-		color: 3092790,
+		color: 16753847,
 	};
 
 	return new Response(

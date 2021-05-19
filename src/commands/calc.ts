@@ -7,7 +7,7 @@ export default async (cmd: Command): Promise<Response> => {
 	const embed: Embed = {
 		title: ':abacus: **Calc**',
 		description: `\`\`\`js\n${expr} = ${answer}\n\`\`\``,
-		color: 3092790,
+		color: 15958048,
 	};
 
 	return new Response(JSON.stringify({ type: 4, data: { content: '', embeds: [embed] } }), {
