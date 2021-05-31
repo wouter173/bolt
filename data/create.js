@@ -4,8 +4,8 @@ const fs = require('fs');
 const APP = process.env.APP;
 const TOKEN = process.env.TOKEN;
 const GUILD = process.env.GUILD;
-const endpoint = `https://discord.com/api/v8/applications/${APP}/`;
-const URL = endpoint + (GUILD != undefined? `guilds/${GUILD}/commands`: 'commands');
+const endpoint = `https://discord.com/api/v9/applications/${APP}/`;
+const URL = endpoint + (GUILD != undefined ? `guilds/${GUILD}/commands` : 'commands');
 
 const commands = fs.readdirSync('data/commands');
 var cmds = [];
@@ -27,5 +27,8 @@ fetch(URL, {
 })
 	.then(res => res.json())
 	.then(data => {
-		console.log(data.map(i => i.name), 'updated.');
+		console.log(
+			data.map(i => i.name),
+			'updated.',
+		);
 	});

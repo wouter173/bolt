@@ -1,10 +1,11 @@
 import verify from './middleware/verify';
 import calc from './commands/calc';
 import urban from './commands/urban';
-import ball from './commands/8ball';
+import ball, { reroll } from './commands/8ball';
 import clap from './commands/clap';
 import love from './commands/love';
 import sparkles from './commands/sparkles';
+import poll, { vouch } from './commands/poll';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event.request));
@@ -16,34 +17,51 @@ async function handleRequest(req: Request) {
 	const res = await verify(req, body);
 	if (res != null) return res;
 
-	const cmd: Command = JSON.parse(body);
-	if (cmd.type == 1) {
+	const interaction: Interaction = JSON.parse(body);
+	if (interaction.type == 1) {
 		return new Response(JSON.stringify({ type: 1 }), {
 			headers: { 'content-type': 'application/json' },
 		});
 	}
 
-	switch (cmd.data.name) {
-		case 'calc':
-			return calc(cmd);
+	if (interaction.type == 2) {
+		const cmd = interaction as Command;
+		switch (cmd.data.name) {
+			case 'calc':
+				return calc(cmd);
 
-		case 'urban':
-			return urban(cmd);
+			case 'urban':
+				return urban(cmd);
 
-		case '8ball':
-			return ball(cmd);
+			case '8ball':
+				return ball(cmd);
 
-		case 'clap':
-			return clap(cmd);
+			case 'clap':
+				return clap(cmd);
 
-		case 'love':
-			return love(cmd);
+			case 'love':
+				return love(cmd);
 
-		case 'sparkles':
-			return sparkles(cmd);
+			case 'sparkles':
+				return sparkles(cmd);
 
-		default:
-			console.log(cmd);
-			return new Response();
+			case 'poll':
+				return poll(cmd);
+		}
+	} else if (interaction.type == 3) {
+		const comp = interaction as Component;
+		switch (comp.data.custom_id) {
+			case 'reroll':
+				return reroll(comp);
+
+			case 'vouch':
+				return vouch(comp, false);
+
+			case 'unvouch':
+				return vouch(comp, true);
+		}
 	}
+
+	console.log(JSON.stringify(interaction));
+	return new Response();
 }

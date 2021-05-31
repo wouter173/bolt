@@ -1,5 +1,5 @@
-export {}
+export {};
 
 declare global {
-    const PUBLIC_KEY: string;
+	const PUBLIC_KEY: string;
 }

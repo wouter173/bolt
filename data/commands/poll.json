@@ -1,0 +1,12 @@
+{
+	"name": "poll",
+	"description": "poll",
+	"options": [
+		{
+			"name": "statement",
+			"description": "I will go make the future",
+			"type": 3,
+			"required": true
+		}
+	]
+}
