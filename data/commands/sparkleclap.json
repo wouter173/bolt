@@ -1,0 +1,12 @@
+{
+	"name": "sparkleclap",
+	"description": "add some sparks and claps",
+	"options": [
+		{
+			"name": "qoute",
+			"description": "qoute",
+			"type": 3,
+			"required": true
+		}
+	]
+}

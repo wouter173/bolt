@@ -6,6 +6,9 @@ import clap from './commands/clap';
 import love from './commands/love';
 import sparkles from './commands/sparkles';
 import poll, { vouch } from './commands/poll';
+import plusplus from './commands/plusplus';
+import sparkleclap from './commands/sparkleclap';
+import score from './commands/score';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event.request));
@@ -47,6 +50,15 @@ async function handleRequest(req: Request) {
 
 			case 'poll':
 				return poll(cmd);
+
+			case 'pp':
+				return plusplus(cmd);
+			
+			case 'sparkleclap':
+				return sparkleclap(cmd);
+			
+			case 'score':
+				return score(cmd);
 		}
 	} else if (interaction.type == 3) {
 		const comp = interaction as Component;

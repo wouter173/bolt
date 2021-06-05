@@ -1,0 +1,12 @@
+{
+	"name": "score",
+	"description": "get score",
+	"options": [
+		{
+			"name": "key",
+			"description": "I will go make the future",
+			"type": 3,
+			"required": false
+		}
+	]
+}

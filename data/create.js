@@ -27,8 +27,12 @@ fetch(URL, {
 })
 	.then(res => res.json())
 	.then(data => {
-		console.log(
-			data.map(i => i.name),
-			'updated.',
-		);
+		try {
+			console.log(
+				data.map(i => i.name),
+				'updated.',
+			);
+		} catch(e) {
+			console.log(data)
+		}
 	});
