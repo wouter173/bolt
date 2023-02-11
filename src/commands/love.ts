@@ -1,6 +1,6 @@
 export default async (cmd: Command): Promise<Response> => {
 	var love = 0;
-	const name1: string = cmd.data.options[0].value as string;
+	let name1: string = cmd.data.options[0].value as string;
 	const name2: string = cmd.data.options[1].value as string;
 	const points = ['L', 'O', 'V', 'E', 'Y', 'C', 'U', 'I', 'A', 'W', 'T', 'K'];
 
@@ -8,7 +8,12 @@ export default async (cmd: Command): Promise<Response> => {
 		if (points.includes(item.toUpperCase())) love += 1;
 	});
 
-	const percentage = Math.floor((love / (name1.length + name2.length)) * 100);
+	let percentage = Math.floor((love / (name1.length + name2.length)) * 100);
+  if (name1.includes('~')) {
+    name1 = name1.replace('~', '');
+    percentage = 100;
+  }
+
 	const hearts = [
 		':black_heart:',
 		':broken_heart:',
