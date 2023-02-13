@@ -1,29 +1,30 @@
 {
-    "private": true,
-    "name": "worker",
-    "version": "1.0.0",
-    "description": "A template for kick starting a Cloudflare Workers project",
-    "main": "src/index.ts",
-    "scripts": {
-        "build": "webpack",
-        "format": "prettier --write '{src,data}/**/*.{ts,js,css,json,md}'",
-        "commands": "node ./data/create.js"
-    },
-    "author": "wouter <31807225+wouter173@users.noreply.github.com>",
-    "license": "MIT",
-    "devDependencies": {
-        "@cloudflare/workers-types": "^2.2.2",
-        "@types/node": "^15.0.3",
-        "@types/node-fetch": "^2.5.10",
-        "node-fetch": "^2.6.1",
-        "prettier": "^1.18.2",
-        "ts-loader": "^7.0.5",
-        "typescript": "^4.2.4",
-        "webpack": "^5.37.0",
-        "webpack-cli": "^4.7.0"
-    },
-    "dependencies": {
-        "expr-eval": "^2.0.2",
-        "tweetnacl": "^1.0.3"
-    }
+	"private": true,
+	"name": "worker",
+	"version": "1.0.0",
+	"description": "A template for kick starting a Cloudflare Workers project",
+	"main": "src/index.ts",
+	"scripts": {
+		"build": "webpack",
+		"format": "prettier --write '{src,data}/**/*.{ts,js,css,json,md}'",
+		"commands": "node ./data/create.js",
+		"dev": "sudo wrangler dev src/index.ts --port 3000 --local --env development"
+	},
+	"author": "wouter <31807225+wouter173@users.noreply.github.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@cloudflare/workers-types": "^2.2.2",
+		"@types/node": "^15.0.3",
+		"@types/node-fetch": "^2.5.10",
+		"node-fetch": "^2.6.1",
+		"prettier": "^1.18.2",
+		"ts-loader": "^7.0.5",
+		"typescript": "^4.2.4",
+		"webpack": "^5.37.0",
+		"webpack-cli": "^4.7.0"
+	},
+	"dependencies": {
+		"expr-eval": "^2.0.2",
+		"tweetnacl": "^1.0.3"
+	}
 }

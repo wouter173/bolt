@@ -9,6 +9,7 @@ import poll, { vouch } from './commands/poll';
 import plusplus from './commands/plusplus';
 import sparkleclap from './commands/sparkleclap';
 import score from './commands/score';
+import timer from './commands/timer';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event.request));
@@ -30,6 +31,9 @@ async function handleRequest(req: Request) {
 	if (interaction.type == 2) {
 		const cmd = interaction as Command;
 		switch (cmd.data.name) {
+			case 'timer':
+				return timer(cmd);
+
 			case 'calc':
 				return calc(cmd);
 
@@ -53,10 +57,10 @@ async function handleRequest(req: Request) {
 
 			case 'pp':
 				return plusplus(cmd);
-			
+
 			case 'sparkleclap':
 				return sparkleclap(cmd);
-			
+
 			case 'score':
 				return score(cmd);
 		}

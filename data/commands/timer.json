@@ -1,0 +1,17 @@
+{
+	"name": "timer",
+	"description": "yes bitch",
+	"options": [
+		{
+			"name": "startstop",
+			"description": "which one",
+			"type": 3,
+			"required": true,
+			"choices": [
+				{ "name": "start", "value": "start" },
+				{ "name": "stop", "value": "stop" },
+				{ "name": "check", "value": "check" }
+			]
+		}
+	]
+}

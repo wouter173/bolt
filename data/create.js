@@ -5,7 +5,7 @@ const APP = process.env.APP;
 const TOKEN = process.env.TOKEN;
 const GUILD = process.env.GUILD;
 const endpoint = `https://discord.com/api/v9/applications/${APP}/`;
-const URL = endpoint + (GUILD != undefined ? `guilds/${GUILD}/commands` : 'commands');
+const url = endpoint + (GUILD != undefined ? `guilds/${GUILD}/commands` : 'commands');
 
 const commands = fs.readdirSync('data/commands');
 var cmds = [];
@@ -20,7 +20,7 @@ const headers = {
 	'Content-Type': 'application/json',
 };
 
-fetch(URL, {
+fetch(url, {
 	body: JSON.stringify(cmds),
 	method: 'PUT',
 	headers,
@@ -32,7 +32,7 @@ fetch(URL, {
 				data.map(i => i.name),
 				'updated.',
 			);
-		} catch(e) {
-			console.log(data)
+		} catch (e) {
+			console.log(JSON.stringify(data));
 		}
 	});
