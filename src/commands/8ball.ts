@@ -1,16 +1,40 @@
+const url = 'https://api.openai.com/v1/chat/completions';
+const prompt =
+	'You are a 8ball fortune teller and to give fitting 8ball answers to the input questions. it does not matter what the user asks as long as you are able to give a funny answer. you are not allowed to give consolation in the answer or give another option. the answer should be short and funny. the answer has to be dutch. for the record sting is in love with froukje.';
+
 export default async (cmd: Command): Promise<Response> => {
+	const res = await fetch(url, {
+		method: 'POST',
+		headers: {
+			'content-type': 'application/json',
+			authorization: 'Bearer ' + OPENAI_APIKEY,
+		},
+		body: JSON.stringify({
+			model: 'gpt-3.5-turbo',
+			messages: [
+				{
+					role: 'system',
+					content: prompt,
+				},
+				{
+					role: 'user',
+					content: cmd.data.options[0].value,
+				},
+			],
+		}),
+	});
+
+	const data = await res.json();
+	const out = data.choices[0].message.content;
+	console.log('8ball: ', cmd.data.options[0].value, ' => ', out);
+
 	const embed: Embed = {
 		title: ':8ball: **8ball**',
 		description: `
             \`\`\`${cmd.data.options[0].value}\`\`\`
-            \`\`\`${answers[Math.floor(Math.random() * answers.length)]}\`\`\`
+            \`\`\`${out}\`\`\`
         `,
 		color: 15958048,
-	};
-
-	const emoji: Emoji = {
-		name: '🔂',
-		animated: false,
 	};
 
 	return new Response(
@@ -19,48 +43,10 @@ export default async (cmd: Command): Promise<Response> => {
 			data: {
 				embeds: [embed],
 				content: '',
-				components: [
-					{
-						type: 1,
-						components: [
-							{
-								type: 2,
-								style: 1,
-								label: 'Reroll',
-								custom_id: 'reroll',
-								emoji,
-							},
-						],
-					},
-				],
 			},
 		}),
 		{
 			headers: { 'Content-Type': 'application/json' },
-		},
-	);
-};
-
-export const reroll = async (component: Component): Promise<Response> => {
-	const embed: Embed = {
-		title: ':8ball: **8ball**',
-		description: `
-            \`\`\`${component.message.embeds[0].description!.split('```')[1]}\`\`\`
-            \`\`\`${answers[Math.floor(Math.random() * answers.length)]}\`\`\`
-        `,
-		color: 15958048,
-	};
-
-	return new Response(
-		JSON.stringify({
-			type: 7,
-			data: {
-				embeds: [embed],
-				components: [],
-			},
-		}),
-		{
-			headers: { 'content-type': 'application/json' },
 		},
 	);
 };

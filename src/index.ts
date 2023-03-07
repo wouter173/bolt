@@ -1,7 +1,7 @@
 import verify from './middleware/verify';
 import calc from './commands/calc';
 import urban from './commands/urban';
-import ball, { reroll } from './commands/8ball';
+import ball from './commands/8ball';
 import clap from './commands/clap';
 import love from './commands/love';
 import sparkles from './commands/sparkles';
@@ -67,9 +67,6 @@ async function handleRequest(req: Request) {
 	} else if (interaction.type == 3) {
 		const comp = interaction as Component;
 		switch (comp.data.custom_id) {
-			case 'reroll':
-				return reroll(comp);
-
 			case 'vouch':
 				return vouch(comp, false);
 
