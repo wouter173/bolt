@@ -10,6 +10,7 @@ import plusplus from './commands/plusplus';
 import sparkleclap from './commands/sparkleclap';
 import score from './commands/score';
 import timer from './commands/timer';
+import usage from './commands/usage';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event.request));
@@ -63,6 +64,9 @@ async function handleRequest(req: Request) {
 
 			case 'score':
 				return score(cmd);
+
+			case 'usage':
+				return usage(cmd);
 		}
 	} else if (interaction.type == 3) {
 		const comp = interaction as Component;
