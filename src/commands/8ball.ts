@@ -4,6 +4,20 @@ const system =
 
 export default async (cmd: Command): Promise<Response> => {
 	const usernamediscrim = cmd.member.user.username + '#' + cmd.member.user.discriminator;
+	const body = cmd.data.options[0].value as string;
+	if (body.length > 100) {
+		return new Response(
+			JSON.stringify({
+				type: 4,
+				data: {
+					content: 'fuck you das te lang',
+				},
+			}),
+			{
+				headers: { 'Content-Type': 'application/json' },
+			},
+		);
+	}
 
 	const res = await fetch(url, {
 		method: 'POST',
@@ -57,34 +71,3 @@ export default async (cmd: Command): Promise<Response> => {
 		},
 	);
 };
-
-const answers = [
-	'yes',
-	'no',
-	'perhaps',
-	'maybe',
-	'definetly',
-	'hell no',
-	'obviously',
-	'no you dumb fuck',
-	'are you litteraly retarded?',
-	'why the fuck would you say that',
-	'NOO',
-	'lmao, sometimes',
-	'only on saturdays',
-	'if she is okay with it.',
-	'I digress but you do you',
-	'fuck no',
-	'bruh',
-	'are you kidding me?',
-	'fuck you',
-	'shut the fuck up dumb cunt.',
-	'hou je domme kanker bek',
-	'suck my cock you',
-	'eat ass',
-	'you are gay',
-	'skullfucked gremlin',
-	'shitass bitch',
-	'fuck you',
-	'dumb fucking moron',
-];
