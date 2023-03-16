@@ -24,7 +24,10 @@ export default async (cmd: Command): Promise<Response> => {
 		fields: [
 			{
 				name: 'jullie hebben me:',
-				value: `€${(usage / 100).toLocaleString('eu')} gekost`,
+				value: `€${(usage / 100).toLocaleString('nl-NL', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				})} gekost`,
 				inline: false,
 			},
 		],
