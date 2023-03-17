@@ -18,7 +18,7 @@ export default async (cmd: Command): Promise<Response> => {
 		);
 	}
 
-	const model = (cmd.data.options[1]?.value ?? 'gpt3') as 'gpt3' | 'gpt4';
+	const model = (cmd.data.options[1]?.value || 'gpt3') as 'gpt3' | 'gpt4';
 	const completionsResponse = await fetch('https://api.openai.com/v1/chat/completions', {
 		method: 'POST',
 		headers: {
