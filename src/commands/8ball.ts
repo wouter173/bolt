@@ -18,6 +18,7 @@ export default async (cmd: Command): Promise<Response> => {
 		);
 	}
 
+	const model = (cmd.data.options[1]?.value ?? 'gpt3') as 'gpt3' | 'gpt4';
 	const completionsResponse = await fetch('https://api.openai.com/v1/chat/completions', {
 		method: 'POST',
 		headers: {
@@ -26,7 +27,7 @@ export default async (cmd: Command): Promise<Response> => {
 		},
 		body: JSON.stringify({
 			temperature: 0.4,
-			model: 'gpt-3.5-turbo',
+			model: model === 'gpt3' ? 'gpt-3.5-turbo' : 'gpt-4',
 			messages: [
 				{
 					role: 'system',
@@ -45,6 +46,7 @@ export default async (cmd: Command): Promise<Response> => {
 	});
 
 	const data = await completionsResponse.json();
+	console.log(data);
 	const out = data.choices[0].message.content;
 	console.log('8ball: ', cmd.data.options[0].value, ' => ', out);
 
@@ -55,6 +57,12 @@ export default async (cmd: Command): Promise<Response> => {
             \`\`\`${out}\`\`\`
         `,
 		color: 15958048,
+		footer:
+			model === 'gpt4'
+				? {
+						text: 'gpt-4 beta',
+				  }
+				: undefined,
 	};
 
 	return new Response(

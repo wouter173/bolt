@@ -3,10 +3,25 @@
 	"description": "8ball brrr",
 	"options": [
 		{
-			"name": "quote",
+			"name": "question",
 			"description": "I will go make the future",
 			"type": 3,
 			"required": true
+		},
+		{
+			"name": "model",
+			"description": "choose your model",
+			"type": 3,
+			"choices": [
+				{
+					"name": "GPT-3.5 turbo",
+					"value": "gpt3"
+				},
+				{
+					"name": "GPT-4",
+					"value": "gpt4"
+				}
+			]
 		}
 	]
 }
