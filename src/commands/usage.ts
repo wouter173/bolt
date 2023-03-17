@@ -18,16 +18,34 @@ export default async (cmd: Command): Promise<Response> => {
 	const data = await res.json();
 	const usage = Math.ceil(data.total_usage);
 
+	const subscriptionResponse = await fetch('https://api.openai.com/dashboard/billing/subscription', {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			authorization: 'Bearer ' + OPENAI_APIKEY,
+		},
+	});
+
+	const subscriptionData = await subscriptionResponse.json();
+	const rawLimit = subscriptionData.hard_limit_usd as number;
+	const limit = Math.ceil(rawLimit * 100) / 100;
+
 	const embed: Embed = {
 		title: `:bar_chart: **usage**`,
 		color: 15958048,
+		footer: {
+			text: 'sponsored by Wouter de Droog',
+		},
 		fields: [
 			{
 				name: 'jullie hebben me:',
-				value: `€${(usage / 100).toLocaleString('nl-NL', {
+				value: `\`€${(usage / 100).toLocaleString('nl-NL', {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2,
-				})} gekost`,
+				})}\` / \`€${limit.toLocaleString('nl-NL', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				})}\` gekost`,
 				inline: false,
 			},
 		],
