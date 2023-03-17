@@ -1,17 +1,17 @@
 name: Wrangler
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - uses: actions/checkout@v2
-      - name: Publish
-        uses: cloudflare/wrangler-action@1.3.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
+    deploy:
+        runs-on: ubuntu-latest
+        name: Deploy
+        steps:
+            - uses: actions/checkout@v2
+            - name: Publish
+              uses: cloudflare/wrangler-action@2.12.3
+              with:
+                  apiToken: ${{ secrets.CF_API_TOKEN }}
