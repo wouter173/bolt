@@ -11,6 +11,7 @@ import sparkleclap from './commands/sparkleclap';
 import score from './commands/score';
 import timer from './commands/timer';
 import usage from './commands/usage';
+import dayssince from './commands/dayssince';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event.request));
@@ -32,6 +33,9 @@ async function handleRequest(req: Request) {
 	if (interaction.type == 2) {
 		const cmd = interaction as Command;
 		switch (cmd.data.name) {
+			case 'dayssince':
+				return dayssince(cmd);
+
 			case 'timer':
 				return timer(cmd);
 

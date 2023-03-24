@@ -2,9 +2,11 @@ name = "bot"
 node_compat = true
 compatibility_date = "2023-02-13"
 main = "./src/index.ts"
-
 account_id = "dff063da5dd1d4b1fa1f5c61ed75876b"
 workers_dev = true
+rules = [
+  { type = "CompiledWasm", globs = ["**/*.wasm"], fallthrough = true }
+]
 
 kv_namespaces = [
     { binding = "SCORE", id = "eddb8695f956432fa22902c28906cb82", preview_id = "eddb8695f956432fa22902c28906cb82"}
