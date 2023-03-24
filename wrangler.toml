@@ -17,3 +17,6 @@ vars={PUBLIC_KEY="74a6ee447f5ad7066aa8782dd670051eed8d18599c04002f00b7372052e26b
 kv_namespaces = [
     { binding = "SCORE", id = "eddb8695f956432fa22902c28906cb82", preview_id = "eddb8695f956432fa22902c28906cb82"}
 ]
+
+[site]
+bucket = "./public"
