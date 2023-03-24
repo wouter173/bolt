@@ -1,6 +1,11 @@
 import { generateImage } from '../lib/image';
-import { daysSinceImg, daysSinceRestImg } from '../lib/b64images';
 import React from 'react';
+
+async function getB64Image(url: string): Promise<string> {
+	const res = await fetch(url);
+	const text = await res.text();
+	return text;
+}
 
 export default async (cmd: Command, url: URL): Promise<Response> => {
 	const timestamp = await SCORE.get('dayssince', 'text');
@@ -13,6 +18,8 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 		dayssince = Math.floor(diff / (1000 * 60 * 60 * 24));
 	}
 
+	const b64img = await getB64Image(`https://${url.hostname}/${dayssince == 0 ? 'dayssince' : 'dayssincereset'}.txt`);
+
 	await SCORE.put('dayssince', now.getTime().toString());
 
 	const template = (
@@ -24,12 +31,7 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 				position: 'relative',
 			}}
 		>
-			<img
-				width={612}
-				height={477}
-				style={{ width: '612px', height: '477px', position: 'absolute' }}
-				src={dayssince == 0 ? daysSinceImg : daysSinceRestImg}
-			/>
+			<img width={612} height={477} style={{ width: '612px', height: '477px', position: 'absolute' }} src={b64img} />
 			<span
 				style={{
 					position: 'absolute',
