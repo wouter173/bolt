@@ -1,4 +1,5 @@
 import { generateImage } from '../lib/image';
+import { daysSinceImg, daysSinceRestImg } from '../lib/b64images';
 import React from 'react';
 
 export default async (cmd: Command, url: URL): Promise<Response> => {
@@ -20,13 +21,25 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 				display: 'flex',
 				width: '100vw',
 				height: '100vh',
-				background: `url('${'https://' + url.hostname + (dayssince == 0 ? '/dayssince' : '/dayssincereset') + '.png'}')`,
-				backgroundSize: `612px 477px`,
-				backgroundPosition: 'center',
-				backgroundRepeat: 'no-repeat',
+				position: 'relative',
 			}}
 		>
-			<span style={{ display: 'flex', top: '100px', left: '180px', fontSize: '32px', textDecoration: dayssince == 0 ? '' : 'line-through' }}>
+			<img
+				width={612}
+				height={477}
+				style={{ width: '612px', height: '477px', position: 'absolute' }}
+				src={dayssince == 0 ? daysSinceImg : daysSinceRestImg}
+			/>
+			<span
+				style={{
+					position: 'absolute',
+					display: 'flex',
+					top: '100px',
+					left: '180px',
+					fontSize: '32px',
+					textDecoration: dayssince == 0 ? '' : 'line-through',
+				}}
+			>
 				{dayssince}
 			</span>
 		</div>
