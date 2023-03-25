@@ -13,6 +13,7 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 	}
 
 	const imgurl = S3_BUCKET + (dayssince == 0 ? '/dayssince.png' : '/dayssincereset.png');
+	console.log(imgurl);
 	await SCORE.put('dayssince', now.getTime().toString());
 
 	const template = (
