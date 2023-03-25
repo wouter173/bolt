@@ -13,7 +13,6 @@
 	"author": "wouter <31807225+wouter173@users.noreply.github.com>",
 	"license": "MIT",
 	"devDependencies": {
-		"@cloudflare/kv-asset-handler": "^0.3.0",
 		"@cloudflare/workers-types": "^2.2.2",
 		"@types/node": "^15.0.3",
 		"@types/node-fetch": "^2.5.10",

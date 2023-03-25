@@ -1,4 +1,3 @@
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
 import verify from './middleware/verify';
 import calc from './commands/calc';
 import urban from './commands/urban';
@@ -21,11 +20,6 @@ addEventListener('fetch', event => {
 async function handleRequest(event: FetchEvent) {
 	const req = event.request;
 	const url = new URL(req.url);
-	console.log(url.hostname);
-
-	if (url.pathname !== '/') {
-		return await getAssetFromKV(event);
-	}
 
 	const body = await req.text();
 
