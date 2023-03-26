@@ -44,7 +44,6 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 
 	console.log('yus');
 	const img = await generateImage(template, { width: 612, height: 477 });
-	// console.log(img);
 	const body = JSON.stringify({
 		type: 4,
 		data: {
@@ -58,7 +57,7 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 
 	const formData = new FormData();
 	formData.append('payload_json', body);
-	formData.append('files[0]', new Blob([img]), 'image.png');
+	formData.append('files[0]', new Blob([img]), 'image2.png');
 
 	return new Response(formData);
 };
