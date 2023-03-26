@@ -12,6 +12,7 @@ export async function generateImage(node: ReactNode, options: { width: number; h
 		wasmInited = true;
 	}
 
+	console.log('satori image...');
 	const svg = await satori(node, {
 		width: options.width,
 		height: options.height,
@@ -35,7 +36,9 @@ export async function generateImage(node: ReactNode, options: { width: number; h
 		},
 	};
 	const resvg = new Resvg(svg, opts);
+	console.log('resvg');
 	const pngData = resvg.render();
+	console.log('resvg 2');
 	const pngBuffer = pngData.asPng();
 
 	return pngBuffer;
