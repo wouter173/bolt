@@ -44,23 +44,32 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 
 	console.log('yus');
 	const img = await generateImage(template, { width: 612, height: 477 });
+	const data = {
+		content: 'hi',
+		attachments: [
+			{
+				id: 0,
+			},
+		],
+	};
+
 	const body = JSON.stringify({
 		type: 4,
-		data: {
-			attachments: [
-				{
-					id: 0,
-				},
-			],
-		},
+		data,
 	});
-	console.log(body);
+	console.log(JSON.stringify(data));
 
 	const formData = new FormData();
 	formData.append('payload_json', body);
 	const blob = new Blob([img]);
 	console.log(blob.size);
 	formData.append('files[0]', blob, 'image2.png');
+
+	const formData2 = new FormData();
+	formData.append('payload_json', JSON.stringify(data));
+	formData.append('files[0]', blob, 'image.png');
+
+	console.log(await r.json());
 
 	return new Response(formData);
 };
