@@ -58,8 +58,9 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 
 	const formData = new FormData();
 	formData.append('payload_json', body);
-	formData.append('files[0]', new Blob([img]), 'image2.png');
-	console.log(JSON.stringify(Object.fromEntries(formData)));
+	const blob = new Blob([img]);
+	console.log(blob.size);
+	formData.append('files[0]', blob, 'image2.png');
 
 	return new Response(formData);
 };
