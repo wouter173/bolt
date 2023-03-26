@@ -69,7 +69,7 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 	formData.append('payload_json', JSON.stringify(data));
 	formData.append('files[0]', blob, 'image.png');
 
-	console.log(await r.json());
+	// console.log(await r.json());
 
 	return new Response(formData);
 };
