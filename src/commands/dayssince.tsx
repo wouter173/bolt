@@ -44,7 +44,7 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 
 	console.log('yus');
 	const img = await generateImage(template, { width: 612, height: 477 });
-	console.log(img);
+	// console.log(img);
 	const body = JSON.stringify({
 		type: 4,
 		data: {
