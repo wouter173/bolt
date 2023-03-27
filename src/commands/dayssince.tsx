@@ -61,23 +61,9 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 
 	const formData = new FormData();
 	formData.append('payload_json', body);
-	const blob = new Blob([img]);
+	const blob = new Blob([img], { type: 'image/png' });
 	console.log(blob.size);
 	formData.append('files[0]', blob, 'image2.png');
-
-	const formData2 = new FormData();
-	formData2.append('payload_json', JSON.stringify(data));
-	formData2.append('files[0]', blob, 'image.png');
-
-	const r = await fetch('https://discord.com/api/v10/channels/999707017734267030/messages', {
-		method: 'POST',
-		headers: {
-			Authorization: `Bot ODQyNDA2MTU1NDU5MjMxNzQ0.GVfjld.rbakkPrXZCof7JYptZh_p-dzvUY8OEy5SYkErw`,
-		},
-		body: formData2,
-	});
-
-	console.log(await r.json());
 
 	return new Response(formData);
 };

@@ -21,12 +21,11 @@ async function handleRequest(event: FetchEvent) {
 	const req = event.request;
 	const url = new URL(req.url);
 
-	const body = await req.text();
-
-	const res = await verify(req, body);
+	const res = await verify(req);
 	if (res != null) return res;
 
-	const interaction: Interaction = JSON.parse(body);
+	const interaction: Interaction = await req.json();
+	console.log(JSON.stringify(interaction));
 	if (interaction.type == 1) {
 		return new Response(JSON.stringify({ type: 1 }), {
 			headers: { 'content-type': 'application/json' },

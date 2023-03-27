@@ -14,7 +14,6 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@cloudflare/workers-types": "^2.2.2",
-		"@types/node": "^15.0.3",
 		"@types/node-fetch": "^2.5.10",
 		"node-fetch": "^2.6.1",
 		"prettier": "^1.18.2",
@@ -25,6 +24,7 @@
 	"dependencies": {
 		"@resvg/resvg-wasm": "^2.4.1",
 		"@types/react": "^18.0.29",
+		"browser-buffer": "0.0.1-1",
 		"expr-eval": "^2.0.2",
 		"react": "^18.2.0",
 		"satori": "^0.4.4",
