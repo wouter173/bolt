@@ -23,6 +23,7 @@
 		"typescript": "^4.2.4"
 	},
 	"dependencies": {
+		"@discordjs/builders": "^1.5.0",
 		"@resvg/resvg-wasm": "^2.4.1",
 		"@types/react": "^18.0.29",
 		"browser-buffer": "0.0.1-1",

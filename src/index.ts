@@ -36,7 +36,7 @@ async function handleRequest(event: FetchEvent) {
 		const cmd = interaction as Command;
 		switch (cmd.data.name) {
 			case 'dayssince':
-				return dayssince(cmd, url);
+				return dayssince(cmd);
 
 			case 'timer':
 				return timer(cmd);
