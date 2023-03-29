@@ -5,9 +5,8 @@
 	"description": "A template for kick starting a Cloudflare Workers project",
 	"main": "src/index.ts",
 	"scripts": {
-		"build": "webpack",
 		"format": "prettier --write '{src,data}/**/*.{ts,js,css,json,md}'",
-		"commands": "tsx ./data/create.ts",
+		"commands": "node ./esbuild-commands.config.mjs && node ./dist/create.js",
 		"dev": "sudo wrangler dev src/index.ts --port 3000 --local --env development"
 	},
 	"author": "wouter <31807225+wouter173@users.noreply.github.com>",
@@ -15,16 +14,18 @@
 	"devDependencies": {
 		"@cloudflare/workers-types": "^2.2.2",
 		"@types/node-fetch": "^2.5.10",
+		"@types/react": "^18.0.29",
 		"node-fetch": "^2.6.1",
 		"prettier": "^1.18.2",
 		"rollup-plugin-node-polyfills": "^0.2.1",
 		"ts-loader": "^7.0.5",
-		"tsx": "^3.12.6",
-		"typescript": "^4.2.4"
+		"typescript": "^4.2.4",
+		"esbuild": "^0.17.14",
+		"esbuild-plugin-wat": "^0.2.7"
 	},
 	"dependencies": {
+		"@discordjs/builders": "^1.5.0",
 		"@resvg/resvg-wasm": "^2.4.1",
-		"@types/react": "^18.0.29",
 		"browser-buffer": "0.0.1-1",
 		"dotenv": "^16.0.3",
 		"expr-eval": "^2.0.2",

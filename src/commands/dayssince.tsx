@@ -1,7 +1,13 @@
 import { generateImage } from '../lib/image';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import React from 'react';
 
-export default async (cmd: Command, url: URL): Promise<Response> => {
+export const definition = new SlashCommandBuilder()
+	.setName('dayssince')
+	.setDescription('days since uit de hand gelopen gesprek in maishond')
+	.addSubcommand(subcommand => subcommand.setName('reset').setDescription('reset de dagen'));
+
+export async function handle(cmd: Command): Promise<Response> {
 	const timestamp = await SCORE.get('dayssince', 'text');
 	const now = new Date();
 	let dayssince = 0;
@@ -64,4 +70,6 @@ export default async (cmd: Command, url: URL): Promise<Response> => {
 	formData.append('files[0]', blob, 'image2.png');
 
 	return new Response(formData);
-};
+}
+
+export default handle;
