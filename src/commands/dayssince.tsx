@@ -25,9 +25,12 @@ export async function handle(cmd: Command): Promise<Response> {
 		dayssince = Math.floor(diff / (1000 * 60 * 60 * 24));
 	}
 
-	const imgurl = S3_BUCKET + (dayssince == 0 ? '/dayssince.png' : '/dayssincereset.png');
+	const reset = Boolean(cmd.data.options?.find(o => o.name === 'reset')?.value);
+	let imgurl = S3_BUCKET + (reset ? '/dayssincereset.png' : '/dayssince.png');
+
+	if (reset) await SCORE.put('dayssince', now.getTime().toString());
+
 	console.log(imgurl);
-	await SCORE.put('dayssince', now.getTime().toString());
 
 	const template = (
 		<div
@@ -47,7 +50,7 @@ export async function handle(cmd: Command): Promise<Response> {
 					top: '100px',
 					left: '180px',
 					fontSize: '32px',
-					textDecoration: dayssince == 0 ? '' : 'line-through',
+					textDecoration: reset ? 'line-through' : '',
 				}}
 			>
 				{dayssince}
