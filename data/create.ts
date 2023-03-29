@@ -1,5 +1,5 @@
-const fetch = require('node-fetch');
-const fs = require('fs');
+import 'dotenv/config';
+import fs from 'fs';
 
 const APP = process.env.APP;
 const TOKEN = process.env.TOKEN;
@@ -8,7 +8,7 @@ const endpoint = `https://discord.com/api/v9/applications/${APP}/`;
 const url = endpoint + (GUILD != undefined ? `guilds/${GUILD}/commands` : 'commands');
 
 const commands = fs.readdirSync('data/commands');
-var cmds = [];
+var cmds: string[] = [];
 
 commands.forEach(name => {
 	let cmd = fs.readFileSync('data/commands/' + name, 'utf-8');
