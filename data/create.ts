@@ -17,7 +17,7 @@ commands.forEach(name => {
 });
 
 Object.values(definitions).forEach(def => {
-	cmds.push(def.toJSON());
+	cmds.push(def);
 });
 
 const headers = {
