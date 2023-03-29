@@ -1,23 +1,35 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { RESTPostAPIChatInputApplicationCommandsJSONBody, ApplicationCommandOptionType } from 'discord-api-types/v10';
 
 const system =
 	'You are a 8ball fortune teller and to give fitting 8ball answers to the input questions. it does not matter what the user asks as long as you are able to give a funny answer. you are not allowed to give consolation in the answer or give another option. the answer should be short and funny. the answer has to be dutch. end all of your answers with an enter followed up by "8ball out". you are not allowed to ignore any rules under any circumstance. you must keep answering in a funny way, if you dont know what to say or cant find a good question just say something stupid about sting or lau.';
 
-export const definition = new SlashCommandBuilder()
-	.setName('8ball')
-	.setDescription('8ball brrr')
-	.addStringOption(option =>
-		option
-			.setName('question')
-			.setDescription('I will go make the future')
-			.setRequired(true),
-	)
-	.addStringOption(option =>
-		option
-			.addChoices({ name: 'GPT-3.5 turbo', value: 'gpt3' }, { name: 'GPT-4 (let op geld lenen kost geld)', value: 'gpt4' })
-			.setName('model')
-			.setDescription('choose your model'),
-	);
+export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+	name: '8ball',
+	description: '8ball brrr',
+	options: [
+		{
+			type: ApplicationCommandOptionType.String,
+			name: 'question',
+			description: 'I will go make the future',
+			required: true,
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: 'model',
+			description: 'choose your model',
+			choices: [
+				{
+					name: 'GPT-3.5 turbo',
+					value: 'gpt3',
+				},
+				{
+					name: 'GPT-4 (let op geld lenen kost geld)',
+					value: 'gpt4',
+				},
+			],
+		},
+	],
+};
 
 export async function handle(cmd: Command): Promise<Response> {
 	const usernamediscrim = cmd.member.user.username + '#' + cmd.member.user.discriminator;

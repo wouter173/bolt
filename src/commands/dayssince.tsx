@@ -1,11 +1,18 @@
 import { generateImage } from '../lib/image';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { RESTPostAPIChatInputApplicationCommandsJSONBody, ApplicationCommandOptionType } from 'discord-api-types/v10';
 import React from 'react';
 
-export const definition = new SlashCommandBuilder()
-	.setName('dayssince')
-	.setDescription('days since uit de hand gelopen gesprek in maishond')
-	.addSubcommand(subcommand => subcommand.setName('reset').setDescription('reset de dagen'));
+export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+	name: 'dayssince',
+	description: 'days since uit de hand gelopen gesprek in maishond',
+	options: [
+		{
+			name: 'reset',
+			type: ApplicationCommandOptionType.Boolean,
+			description: 'reset de teller',
+		},
+	],
+};
 
 export async function handle(cmd: Command): Promise<Response> {
 	const timestamp = await SCORE.get('dayssince', 'text');
