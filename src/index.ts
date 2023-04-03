@@ -14,6 +14,7 @@ import usage from './commands/usage';
 import dayssince from './commands/dayssince';
 import { updateAllMOTD } from './lib/motd';
 import motd from './commands/motd';
+import dayssincechannel from './commands/dayssincechannel';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event));
@@ -45,8 +46,12 @@ async function handleRequest(event: FetchEvent) {
 	if (interaction.type == 2) {
 		const cmd = interaction as Command;
 		switch (cmd.data.name) {
+			case 'dayssincechannel':
+				return dayssincechannel(cmd);
+
 			case 'motd':
 				return motd(cmd);
+
 			case 'dayssince':
 				return dayssince(cmd);
 
