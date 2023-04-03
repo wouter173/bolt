@@ -12,9 +12,16 @@ import score from './commands/score';
 import timer from './commands/timer';
 import usage from './commands/usage';
 import dayssince from './commands/dayssince';
+import { updateAllMOTD } from './lib/motd';
+import motd from './commands/motd';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event));
+});
+
+addEventListener('scheduled', event => {
+	console.log('ayo');
+	updateAllMOTD();
 });
 
 async function handleRequest(event: FetchEvent) {
@@ -25,7 +32,6 @@ async function handleRequest(event: FetchEvent) {
 	if (res != null) return res;
 
 	const interaction: Interaction = await req.json();
-	console.log(JSON.stringify(interaction));
 	if (interaction.type == 1) {
 		return new Response(JSON.stringify({ type: 1 }), {
 			headers: { 'content-type': 'application/json' },
@@ -35,6 +41,8 @@ async function handleRequest(event: FetchEvent) {
 	if (interaction.type == 2) {
 		const cmd = interaction as Command;
 		switch (cmd.data.name) {
+			case 'motd':
+				return motd(cmd);
 			case 'dayssince':
 				return dayssince(cmd);
 
