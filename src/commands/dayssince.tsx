@@ -15,7 +15,8 @@ export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
 };
 
 export async function handle(cmd: Command): Promise<Response> {
-	const timestamp = await SCORE.get('dayssince', 'text');
+	const key = 'dayssince-' + cmd.guild_id;
+	const timestamp = await SCORE.get(key, 'text');
 	const now = new Date();
 	let dayssince = 0;
 
@@ -28,7 +29,7 @@ export async function handle(cmd: Command): Promise<Response> {
 	const reset = Boolean(cmd.data.options?.find(o => o.name === 'reset')?.value);
 	let imgurl = S3_BUCKET + (reset ? '/dayssincereset.png' : '/dayssince.png');
 
-	if (reset) await SCORE.put('dayssince', now.getTime().toString());
+	if (reset) await SCORE.put(key, now.getTime().toString());
 
 	console.log(imgurl);
 
