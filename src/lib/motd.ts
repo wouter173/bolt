@@ -1,3 +1,5 @@
+import { Prettify } from '../types/utils';
+
 const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
 type DaysOfTheWeek = typeof daysOfTheWeek[number];
 

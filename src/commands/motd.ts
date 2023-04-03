@@ -6,6 +6,7 @@ const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', '
 export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
 	name: 'motd',
 	description: 'set motd of the channel',
+	default_member_permissions: (1 << 3).toString(), // Administrator
 	options: [
 		{
 			name: 'day',
