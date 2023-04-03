@@ -19,9 +19,9 @@ addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event));
 });
 
-addEventListener('scheduled', event => {
+addEventListener('scheduled', async event => {
 	console.log('ayo');
-	updateAllMOTD();
+	await updateAllMOTD();
 });
 
 async function handleRequest(event: FetchEvent) {
