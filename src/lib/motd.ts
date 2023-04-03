@@ -13,7 +13,7 @@ type MOTDData = Prettify<
 	}
 >;
 
-function getCurrentDay() {
+export function getCurrentDay() {
 	const dayOfTheWeek = new Date().getDay();
 	return daysOfTheWeek[dayOfTheWeek];
 }
@@ -27,7 +27,7 @@ export async function updateAllMOTD() {
 	for (const key of keys) await updateMOTD(key.name, day);
 }
 
-async function updateMOTD(channelId: string, day: DaysOfTheWeek) {
+export async function updateMOTD(channelId: string, day: DaysOfTheWeek) {
 	const val = JSON.parse((await MOTD.get(channelId))!) as MOTDData;
 	if (!val) return;
 	let topic = val[day] ? val[day]! : val.default;

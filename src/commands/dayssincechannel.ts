@@ -1,4 +1,5 @@
 import { ApplicationCommandOptionType, RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
+import { getCurrentDay, updateMOTD } from '../lib/motd';
 
 export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
 	name: 'dayssincechannel',
@@ -35,6 +36,7 @@ export async function handle(cmd: Command) {
 	}
 
 	SCORE.put('scorechannel-' + cmd.guild_id, channelId);
+	await updateMOTD(channelId, getCurrentDay());
 
 	return new Response(
 		JSON.stringify({
