@@ -33,10 +33,16 @@ export async function updateMOTD(channelId: string, day: DaysOfTheWeek) {
 	let topic = val[day] ? val[day]! : val.default;
 
 	const scoreChannelId = await SCORE.get('scorechannel-' + val.guildId);
+	console.log(scoreChannelId, channelId);
 	if (scoreChannelId === channelId) {
-		const score = await SCORE.get('dayssince-' + val.guildId);
-		if (score) {
-			topic += '\n\nDays since laatste uit de hand gelopen gesprek in maishond: ' + score;
+		const timestamp = await SCORE.get('dayssince-' + val.guildId);
+
+		if (timestamp) {
+			const then = new Date(+timestamp);
+			const diff = new Date().getTime() - then.getTime();
+			const dayssince = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+			topic += '\n\n| dagen sinds laatste uit de hand gelopen gesprek in maishond: ' + dayssince;
 		}
 	}
 

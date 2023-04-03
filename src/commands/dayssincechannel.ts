@@ -35,7 +35,7 @@ export async function handle(cmd: Command) {
 		);
 	}
 
-	SCORE.put('scorechannel-' + cmd.guild_id, channelId);
+	await SCORE.put('scorechannel-' + cmd.guild_id, channelId);
 	await updateMOTD(channelId, getCurrentDay());
 
 	return new Response(
