@@ -2,6 +2,7 @@ const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', '
 type DaysOfTheWeek = typeof daysOfTheWeek[number];
 
 export async function updateAllMOTD() {
+	console.log('aaaa');
 	const dayOfTheWeek = new Date().getDay();
 	const day = daysOfTheWeek[dayOfTheWeek];
 	const prefix = day + '-';
