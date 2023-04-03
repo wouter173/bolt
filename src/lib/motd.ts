@@ -1,21 +1,33 @@
-const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
+const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
 type DaysOfTheWeek = typeof daysOfTheWeek[number];
 
+const defaultData = {
+	default: 'default motd, change with `/motd default`',
+};
+
+type Prettify<T> = {
+	[key in keyof T]: T[key];
+} & {};
+
+type MOTDData = Prettify<
+	{ default: string } & {
+		[key in DaysOfTheWeek]?: string;
+	}
+>;
+
 export async function updateAllMOTD() {
-	console.log('aaaa');
 	const dayOfTheWeek = new Date().getDay();
 	const day = daysOfTheWeek[dayOfTheWeek];
-	const prefix = day + '-';
-	console.log(prefix);
 
-	const { keys } = await MOTD.list({ prefix });
+	const { keys } = await MOTD.list();
 	console.log('updating: ', keys.map(key => key.name).join(', '));
 
 	for (const key of keys) {
-		const val = await MOTD.get(key.name);
-		if (val == null) continue;
+		const channelId = key.name;
 
-		const [_, channelId] = key.name.split('-');
+		const val = JSON.parse((await MOTD.get(channelId))!) as MOTDData;
+		if (!val) continue;
+		const topic = val[day] ? val[day]! : val.default;
 
 		const res = await fetch('https://discord.com/api/v10/channels/' + channelId, {
 			method: 'PATCH',
@@ -24,7 +36,7 @@ export async function updateAllMOTD() {
 				authorization: 'Bot ' + TOKEN,
 			},
 			body: JSON.stringify({
-				topic: val,
+				topic,
 			}),
 		});
 
@@ -32,6 +44,10 @@ export async function updateAllMOTD() {
 	}
 }
 
-export async function setMOTD(channelId: string, day: DaysOfTheWeek, message: string) {
-	await MOTD.put(day + '-' + channelId, message);
+export async function setMOTD(channelId: string, day: DaysOfTheWeek | 'default', message: string) {
+	const res = await MOTD.get(channelId);
+	const motdData = (res ? JSON.parse(res) : defaultData) as MOTDData;
+	motdData[day] = message;
+
+	await MOTD.put(channelId, JSON.stringify(motdData));
 }

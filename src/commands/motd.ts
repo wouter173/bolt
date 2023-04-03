@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { setMOTD } from '../lib/motd';
 
-const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
+const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'default'] as const;
 
 export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
 	name: 'motd',

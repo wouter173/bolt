@@ -19,10 +19,14 @@ addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event));
 });
 
-addEventListener('scheduled', async event => {
-	console.log('ayo');
-	await updateAllMOTD();
+addEventListener('scheduled', event => {
+	event.waitUntil(handleScheduled(event));
 });
+
+async function handleScheduled(event: ScheduledEvent) {
+	console.log('scheduled event run');
+	await updateAllMOTD();
+}
 
 async function handleRequest(event: FetchEvent) {
 	const req = event.request;
