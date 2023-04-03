@@ -5,6 +5,7 @@ export async function updateAllMOTD() {
 	const dayOfTheWeek = new Date().getDay();
 	const day = daysOfTheWeek[dayOfTheWeek];
 	const prefix = day + '-';
+	console.log(prefix);
 
 	const { keys } = await MOTD.list({ prefix });
 	console.log('updating: ', keys.map(key => key.name).join(', '));
