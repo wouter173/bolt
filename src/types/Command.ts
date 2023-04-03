@@ -92,6 +92,7 @@ interface Option {
 	type: number;
 	name: string;
 	value: string | boolean | number;
+	options?: Option[];
 }
 
 interface Emoji {

@@ -28,14 +28,14 @@ export const handle = async (command: Command) => {
 	const day = command.data.options[0].value as typeof daysOfTheWeek[number];
 	const message = command.data.options[1].value as string;
 
-	await setMOTD(command.channel_id, day, message);
+	await setMOTD(command.guild_id, command.channel_id, day, message);
 
 	return new Response(
 		JSON.stringify({
 			type: 4,
 			data: {
 				content: 'set motd on `' + day + '` to `' + message + '`',
-				ephemeral: true,
+				flags: (1 << 6).toString(), // ephemeral
 			},
 		}),
 		{

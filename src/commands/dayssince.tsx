@@ -8,13 +8,67 @@ export const definition: RESTPostAPIChatInputApplicationCommandsJSONBody = {
 	options: [
 		{
 			name: 'reset',
-			type: ApplicationCommandOptionType.Boolean,
 			description: 'reset de teller',
+			type: ApplicationCommandOptionType.Subcommand,
+			required: false,
+		},
+		{
+			name: 'scorechannel',
+			description: 'set de channel waar de score in wordt bijgehouden',
+			type: ApplicationCommandOptionType.Subcommand,
+			required: false,
+			options: [
+				{
+					name: 'channel',
+					description: 'de channel',
+					type: ApplicationCommandOptionType.Channel,
+					required: true,
+				},
+			],
 		},
 	],
 };
 
 export async function handle(cmd: Command): Promise<Response> {
+	if (cmd.data.options?.filter(o => o.name === 'scorechannel').length > 0) {
+		let channelId = '0';
+		try {
+			channelId = cmd.data.options[0]!.options![0]!.value.toString();
+		} catch (e) {
+			return new Response(
+				JSON.stringify({
+					type: 4,
+					data: {
+						content: 'insufficient channel',
+						flags: (1 << 6).toString(), // ephemeral
+					},
+				}),
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				},
+			);
+		}
+
+		SCORE.put('scorechannel-' + cmd.guild_id, channelId);
+
+		return new Response(
+			JSON.stringify({
+				type: 4,
+				data: {
+					content: 'updated scoreboard channel',
+					flags: (1 << 6).toString(), // ephemeral
+				},
+			}),
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			},
+		);
+	}
+
 	const key = 'dayssince-' + cmd.guild_id;
 	const timestamp = await SCORE.get(key, 'text');
 	const now = new Date();
@@ -26,7 +80,7 @@ export async function handle(cmd: Command): Promise<Response> {
 		dayssince = Math.floor(diff / (1000 * 60 * 60 * 24));
 	}
 
-	const reset = Boolean(cmd.data.options?.find(o => o.name === 'reset')?.value);
+	const reset = Boolean(cmd.data.options?.filter(o => o.name === 'reset').length > 0 ?? false);
 	let imgurl = S3_BUCKET + (reset ? '/dayssincereset.png' : '/dayssince.png');
 
 	if (reset) await SCORE.put(key, now.getTime().toString());
