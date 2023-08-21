@@ -20,6 +20,8 @@ Object.values(definitions).forEach(def => {
 	cmds.push(def);
 });
 
+console.log(cmds);
+
 const headers = {
 	Authorization: 'Bot ' + TOKEN,
 	'Content-Type': 'application/json',

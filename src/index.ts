@@ -16,6 +16,9 @@ import { updateAllMOTD } from './lib/motd';
 import motd from './commands/motd';
 import dayssincechannel from './commands/dayssincechannel';
 import duo from './commands/duo';
+import months from './commands/months';
+import weeknr from './commands/weeknr';
+import zorgtoeslag from './commands/zorgtoeslag';
 
 addEventListener('fetch', event => {
 	event.respondWith(handleRequest(event));
@@ -47,6 +50,15 @@ async function handleRequest(event: FetchEvent) {
 	if (interaction.type == 2) {
 		const cmd = interaction as Command;
 		switch (cmd.data.name) {
+			case 'zorgtoeslag':
+				return zorgtoeslag(cmd);
+
+			case 'weeknr':
+				return weeknr(cmd);
+
+			case 'months':
+				return months(cmd);
+
 			case 'duo':
 				return duo(cmd);
 
